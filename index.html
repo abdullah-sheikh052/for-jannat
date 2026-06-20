@@ -94,8 +94,8 @@
         }
         canvas {
             background: #ffffff;
-            border-radius: 50%;
             box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            border-radius: 15px;
         }
     </style>
 </head>
@@ -108,7 +108,6 @@
     <button class="btn-love" id="unlockBtn" onclick="revealSurprise()">Plot Our System Equation ✨</button>
 
     <div class="reveal-section" id="surpriseContent">
-        <!-- The Love Equations Display -->
         <div class="equation-box">
             <strong>SYSTEM EQUATION IDENTIFIED:</strong><br>
             x(t) = 16 · sin³(t)<br>
@@ -137,7 +136,7 @@
         content.style.display = 'block';
         setTimeout(() => { content.style.opacity = '1'; }, 50);
 
-        // Start dynamic math plotting
+        // Run the robust path plotting engine
         plotHeartEquation();
     }
 
@@ -145,40 +144,47 @@
         const canvas = document.getElementById('heartCanvas');
         const ctx = canvas.getContext('2d');
         const centerX = canvas.width / 2;
-        const centerY = canvas.height / 2 - 15; // Offset slightly for aesthetics
-        const scale = 9; // Math scale multiplier
+        const centerY = canvas.height / 2 - 15; 
+        const scale = 9; 
         
         let t = 0;
-        const step = 0.03; // Math step increment
+        const step = 0.02; // Slightly smaller step size for a smoother curve
         const end = 2 * Math.PI;
+        const points = []; // Array to store computed coordinates reliably
 
-        ctx.lineWidth = 4;
-        ctx.strokeStyle = "#ff4d6d";
-        ctx.lineCap = "round";
-
-        // Dynamic drawing loop animation
         function draw() {
             if (t <= end + step) {
-                // The actual parametric equations
+                // Mathematical parametric calculation
                 const x = 16 * Math.pow(Math.sin(t), 3);
                 const y = 13 * Math.cos(t) - 5 * Math.cos(2*t) - 2 * Math.cos(3*t) - Math.cos(4*t);
 
-                // Convert math coordinates to HTML pixel space (invert Y because canvas grows downwards)
+                // Mapping mathematical coordinates to pixel viewport
                 const pixelX = centerX + x * scale;
                 const pixelY = centerY - y * scale;
 
-                if (t === 0) {
-                    ctx.beginPath();
-                    ctx.moveTo(pixelX, pixelY);
-                } else {
-                    ctx.lineTo(pixelX, pixelY);
-                    ctx.stroke();
+                points.push({ x: pixelX, y: pixelY });
+
+                // Clear the canvas viewport to prevent pixel artifacts
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+                // Set styles
+                ctx.lineWidth = 4;
+                ctx.strokeStyle = "#ff4d6d";
+                ctx.lineCap = "round";
+                ctx.lineJoin = "round";
+
+                // Draw the accumulated structural path up to this frame
+                ctx.beginPath();
+                ctx.moveTo(points.x, points.y);
+                for (let i = 1; i < points.length; i++) {
+                    ctx.lineTo(points[i].x, points[i].y);
                 }
+                ctx.stroke();
 
                 t += step;
-                requestAnimationFrame(draw); // Smooth framerate callback
+                requestAnimationFrame(draw);
             } else {
-                // Fill heart gently once calculation plotting completes
+                // Apply a clean, gentle shade fill upon structural completion
                 ctx.fillStyle = "rgba(255, 77, 109, 0.15)";
                 ctx.fill();
             }
