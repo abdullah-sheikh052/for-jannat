@@ -22,7 +22,7 @@
             border-radius: 20px;
             background: white;
             box-shadow: 0px 15px 35px rgba(255, 77, 109, 0.1);
-            max-width: 700px;
+            max-width: 750px;
             width: 100%;
             box-sizing: border-box;
         }
@@ -37,7 +37,6 @@
             font-size: 16px;
             margin-bottom: 35px;
             font-style: italic;
-            line-height: 1.4;
         }
         .btn-love {
             background: linear-gradient(45deg, #ff4d6d, #ff758f);
@@ -56,7 +55,7 @@
             box-shadow: 0 8px 25px rgba(255, 77, 109, 0.5);
         }
         .reveal-section {
-            display: none; /* Hidden at first */
+            display: none;
             opacity: 0;
             transition: opacity 0.8s ease-in-out;
         }
@@ -77,16 +76,26 @@
             color: #ff4d6d;
             margin-bottom: 15px;
         }
-        .heart-plot {
-            margin-top: 20px;
-            width: 250px;
-            height: 250px;
-            fill: #ff4d6d;
-            animation: pulse 1.5s infinite alternate;
+        .equation-box {
+            background: #2d3748;
+            color: #a3e635;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 15px;
+            margin: 20px 0;
+            text-align: center;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.3);
         }
-        @keyframes pulse {
-            0% { transform: scale(0.95); }
-            100% { transform: scale(1.05); }
+        .plot-container {
+            margin-top: 25px;
+            display: flex;
+            justify-content: center;
+        }
+        canvas {
+            background: #ffffff;
+            border-radius: 50%;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
         }
     </style>
 </head>
@@ -96,9 +105,16 @@
     <div class="title">Happy Birthday, Jannat! 🎂❤️</div>
     <div class="subtitle">Where Structural Stability Meets Biological Evolution • Since College Days</div>
     
-    <button class="btn-love" id="unlockBtn" onclick="revealSurprise()">Unlock Our Blueprint & Evolution ✨</button>
+    <button class="btn-love" id="unlockBtn" onclick="revealSurprise()">Plot Our System Equation ✨</button>
 
     <div class="reveal-section" id="surpriseContent">
+        <!-- The Love Equations Display -->
+        <div class="equation-box">
+            <strong>SYSTEM EQUATION IDENTIFIED:</strong><br>
+            x(t) = 16 · sin³(t)<br>
+            y(t) = 13 · cos(t) - 5 · cos(2t) - 2 · cos(3t) - cos(4t)
+        </div>
+
         <div class="story-card">
             <div class="story-header">The Perfect Synthesis of Our Worlds:</div>
             <p>In <strong>Building Engineering</strong>, we constantly design for structural stability, reliable equilibrium, and a foundation strong enough to withstand any external storm.</p>
@@ -108,24 +124,66 @@
             <p>May this new year of your life bring you endless growth, pure joy, and brilliant discoveries. Happy Birthday, my favorite scientist! 🌟</p>
         </div>
 
-        <svg class="heart-plot" viewBox="0 0 32 32">
-            <path d="M16 28.5b-0.2-.1-10.7-7.8-12.8-11.7C1.1 12.8 2.3 8 7.5 8c3.2 0 5.8 2.2 8.5 5 2.7-2.8 5.3-5 8.5-5 5.2 0 6.4 4.8 4.3 8.8-2.1 3.9-12.6 11.6-12.8 11.7z"/>
-        </svg>
+        <div class="plot-container">
+            <canvas id="heartCanvas" width="350" height="350"></canvas>
+        </div>
     </div>
 </div>
 
 <script>
     function revealSurprise() {
-        // Hide button smoothly
-        const btn = document.getElementById('unlockBtn');
-        btn.style.display = 'none';
-        
-        // Show content smoothly
+        document.getElementById('unlockBtn').style.display = 'none';
         const content = document.getElementById('surpriseContent');
         content.style.display = 'block';
-        setTimeout(() => {
-            content.style.opacity = '1';
-        }, 50);
+        setTimeout(() => { content.style.opacity = '1'; }, 50);
+
+        // Start dynamic math plotting
+        plotHeartEquation();
+    }
+
+    function plotHeartEquation() {
+        const canvas = document.getElementById('heartCanvas');
+        const ctx = canvas.getContext('2d');
+        const centerX = canvas.width / 2;
+        const centerY = canvas.height / 2 - 15; // Offset slightly for aesthetics
+        const scale = 9; // Math scale multiplier
+        
+        let t = 0;
+        const step = 0.03; // Math step increment
+        const end = 2 * Math.PI;
+
+        ctx.lineWidth = 4;
+        ctx.strokeStyle = "#ff4d6d";
+        ctx.lineCap = "round";
+
+        // Dynamic drawing loop animation
+        function draw() {
+            if (t <= end + step) {
+                // The actual parametric equations
+                const x = 16 * Math.pow(Math.sin(t), 3);
+                const y = 13 * Math.cos(t) - 5 * Math.cos(2*t) - 2 * Math.cos(3*t) - Math.cos(4*t);
+
+                // Convert math coordinates to HTML pixel space (invert Y because canvas grows downwards)
+                const pixelX = centerX + x * scale;
+                const pixelY = centerY - y * scale;
+
+                if (t === 0) {
+                    ctx.beginPath();
+                    ctx.moveTo(pixelX, pixelY);
+                } else {
+                    ctx.lineTo(pixelX, pixelY);
+                    ctx.stroke();
+                }
+
+                t += step;
+                requestAnimationFrame(draw); // Smooth framerate callback
+            } else {
+                // Fill heart gently once calculation plotting completes
+                ctx.fillStyle = "rgba(255, 77, 109, 0.15)";
+                ctx.fill();
+            }
+        }
+        draw();
     }
 </script>
 
