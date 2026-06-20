@@ -16,6 +16,7 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh;
+            overflow-x: hidden;
         }
         .container-box {
             padding: 40px;
@@ -26,67 +27,179 @@
             width: 100%;
             box-sizing: border-box;
             position: relative;
+            min-height: 500px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
         
-        /* === Mailbox Design === */
+        /* ================= MAILBOX SCREEN ================= */
         #mailboxScreen {
+            position: relative;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 50px 0;
-            cursor: pointer;
+            padding: 40px 0;
+            perspective: 1000px;
         }
-        .envelope-icon {
-            width: 180px;
-            height: 120px;
-            background: #ff4d6d;
-            position: relative;
-            border-radius: 8px;
-            box-shadow: 0 15px 25px rgba(255, 77, 109, 0.3);
-            margin-bottom: 30px;
-            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-        .envelope-icon::before {
-            content: '';
+        
+        /* Floating Background Decorative Elements */
+        .decorations {
             position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
             top: 0; left: 0;
-            border-left: 90px solid transparent;
-            border-right: 90px solid transparent;
-            border-top: 70px solid #ff758f;
-            z-index: 3;
-            border-radius: 8px 8px 0 0;
         }
-        .envelope-icon::after {
-            content: '';
+        .floating-heart {
             position: absolute;
-            top: -15px; left: 15px;
-            width: 150px; height: 50px;
-            background: white;
-            border-radius: 5px 5px 0 0;
-            z-index: 1;
-            box-shadow: 0 -2px 5px rgba(0,0,0,0.05);
+            color: #ff758f;
+            opacity: 0.6;
+            animation: floatAround 4s infinite ease-in-out;
         }
-        #mailboxScreen:hover .envelope-icon {
-            transform: translateY(-15px) scale(1.05);
-        }
-        .mailbox-title {
-            color: #ff4d6d;
-            font-size: 32px;
-            font-weight: bold;
-            margin: 0 0 10px 0;
-        }
-        .mailbox-subtitle {
-            color: #6c757d;
-            font-size: 18px;
-            animation: bounceText 2s infinite;
-        }
-        @keyframes bounceText {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-5px); }
+        @keyframes floatAround {
+            0%, 100% { transform: translateY(0) scale(1) rotate(0deg); opacity: 0.4; }
+            50% { transform: translateY(-15px) scale(1.1) rotate(10deg); opacity: 0.8; }
         }
 
-        /* === Letter Design === */
+        /* The Premium Envelope Container */
+        .envelope-wrapper {
+            position: relative;
+            width: 300px;
+            height: 200px;
+            background: #ffe3e7;
+            border-radius: 0 0 12px 12px;
+            box-shadow: 0 20px 40px rgba(255, 77, 109, 0.15);
+            cursor: pointer;
+            margin-bottom: 40px;
+            transform-style: preserve-3d;
+            transition: transform 0.3s ease;
+        }
+        .envelope-wrapper:hover {
+            transform: scale(1.03) translateY(-5px);
+        }
+
+        /* Outer Folds of Envelope */
+        .envelope-front {
+            position: absolute;
+            width: 0; height: 0;
+            z-index: 10;
+        }
+        .left-fold {
+            position: absolute; left: 0; top: 0; width: 0; height: 0;
+            border-left: 150px solid #ffd1d7;
+            border-top: 100px solid transparent;
+            border-bottom: 100px solid transparent;
+            border-radius: 0 0 0 12px;
+            z-index: 5;
+        }
+        .right-fold {
+            position: absolute; right: 0; top: 0; width: 0; height: 0;
+            border-right: 150px solid #ffd1d7;
+            border-top: 100px solid transparent;
+            border-bottom: 100px solid transparent;
+            border-radius: 0 0 12px 0;
+            z-index: 5;
+        }
+        .bottom-fold {
+            position: absolute; bottom: 0; left: 0; width: 0; height: 0;
+            border-bottom: 110px solid #ffc2cc;
+            border-left: 150px solid transparent;
+            border-right: 150px solid transparent;
+            border-radius: 0 0 12px 12px;
+            z-index: 6;
+        }
+        .top-flap {
+            position: absolute; top: 0; left: 0; width: 0; height: 0;
+            border-top: 110px solid #ffb3c1;
+            border-left: 150px solid transparent;
+            border-right: 150px solid transparent;
+            transform-origin: top;
+            transition: transform 0.6s ease 0.2s;
+            z-index: 11; /* Sits on top of seal initially */
+        }
+
+        /* Wax Seal Stamp */
+        .wax-seal {
+            position: absolute;
+            top: 90px; left: 132px;
+            width: 36px; height: 36px;
+            background: #d90429;
+            border-radius: 50%;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2), inset 0 0 6px rgba(0,0,0,0.3);
+            z-index: 12;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.4s ease, opacity 0.4s ease;
+        }
+        .wax-seal::before {
+            content: '❤';
+            color: #fff;
+            font-size: 16px;
+        }
+
+        /* Sliding Preview Letter Inside Envelope */
+        .preview-letter {
+            position: absolute;
+            top: 10px; left: 20px;
+            width: 260px; height: 160px;
+            background: #fffdf9;
+            border-radius: 6px;
+            z-index: 2;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            padding: 15px;
+            box-sizing: border-box;
+            transition: transform 0.8s cubic-bezier(0.19, 1, 0.22, 1) 0.6s;
+        }
+        .preview-line {
+            height: 8px; background: #e9ecef; margin-bottom: 10px; border-radius: 4px;
+        }
+
+        /* Beautiful SVG Rose at Bottom Right */
+        .rose-container {
+            position: absolute;
+            bottom: -25px;
+            right: -25px;
+            width: 100px;
+            height: 100px;
+            z-index: 15;
+            transform: rotate(-15deg);
+            pointer-events: none;
+        }
+
+        /* Envelope Open Trigger State Styles */
+        .envelope-wrapper.open .top-flap {
+            transform: rotateX(180deg);
+            z-index: 1;
+        }
+        .envelope-wrapper.open .wax-seal {
+            transform: scale(0.5) translateY(20px);
+            opacity: 0;
+        }
+        .envelope-wrapper.open .preview-letter {
+            transform: translateY(-130px);
+            z-index: 8;
+        }
+
+        .mailbox-title { color: #ff4d6d; font-size: 32px; font-weight: bold; margin: 0 0 5px 0; }
+        .mailbox-subtitle { color: #6c757d; font-size: 16px; margin: 0; font-style: italic; }
+
+        /* Bursting Love Particles System */
+        .particle {
+            position: absolute;
+            pointer-events: none;
+            animation: burstOut 1.2s forwards cubic-bezier(0.1, 0.8, 0.3, 1);
+            z-index: 99;
+            font-size: 20px;
+        }
+        @keyframes burstOut {
+            0% { transform: translate(0, 0) scale(0); opacity: 1; }
+            100% { transform: translate(var(--tx), var(--ty)) scale(var(--s)); opacity: 0; }
+        }
+
+        /* ================= LETTER SCREEN ================= */
         #letterScreen {
             display: none;
             opacity: 0;
@@ -107,18 +220,19 @@
         }
         .story-header { font-size: 20px; font-weight: bold; color: #ff4d6d; margin-bottom: 15px; }
 
-        /* === 3D Heart Canvas Container === */
+        /* ================= 3D HEART CANVAS SYSTEM ================= */
         .plot-container {
             margin-top: 40px;
             display: flex;
             justify-content: center;
-            perspective: 1000px; /* Gives the 3D depth */
+            perspective: 1000px; 
         }
         .heart-3d-wrapper {
             width: 350px;
             height: 350px;
             position: relative;
             transform-style: preserve-3d;
+            transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1);
         }
         .heart-face {
             position: absolute;
@@ -130,35 +244,53 @@
             background: #ffffff;
             box-shadow: 0 8px 25px rgba(255, 77, 109, 0.15);
         }
-        .heart-face.front {
-            transform: rotateY(0deg);
-        }
-        .heart-face.back {
-            transform: rotateY(180deg);
-        }
+        .heart-face.front { transform: rotateY(0deg); }
+        .heart-face.back { transform: rotateY(180deg); }
         canvas { display: block; border-radius: 15px; }
 
-        /* The 3D Revolve Animation */
-        .spin-animation {
-            animation: revolveHeart 8s infinite cubic-bezier(0.4, 0.0, 0.2, 1);
-        }
-        @keyframes revolveHeart {
-            0% { transform: rotateY(0deg); }
-            15% { transform: rotateY(180deg); } /* Flip to show Text */
-            50% { transform: rotateY(180deg); } /* Hold Text face */
-            65% { transform: rotateY(360deg); } /* Flip to show Drawing */
-            100% { transform: rotateY(360deg); } /* Hold Drawing face */
-        }
+        /* Dynamic Controlled 3D Rotations */
+        .heart-3d-wrapper.flip-to-back { transform: rotateY(180deg); }
+        .heart-3d-wrapper.flip-to-front { transform: rotateY(360deg); }
     </style>
 </head>
 <body>
 
 <div class="container-box">
     
-    <div id="mailboxScreen" onclick="openMail()">
-        <div class="envelope-icon"></div>
+    <div id="mailboxScreen">
+        <div class="decorations">
+            <span class="floating-heart" style="top:10%; left:20%; font-size:24px; animation-delay:0s;">❤</span>
+            <span class="floating-heart" style="top:5%; right:25%; font-size:18px; animation-delay:1.5s;">✨</span>
+            <span class="floating-heart" style="bottom:20%; left:15%; font-size:20px; animation-delay:0.8s;">🌸</span>
+            <span class="floating-heart" style="bottom:10%; right:20%; font-size:22px; animation-delay:2.2s;">❤</span>
+        </div>
+
+        <div class="envelope-wrapper" id="envelope" onclick="processEnvelopeAnimation()">
+            <div class="top-flap"></div>
+            <div class="left-fold"></div>
+            <div class="right-fold"></div>
+            <div class="bottom-fold"></div>
+            <div class="wax-seal"></div>
+            
+            <div class="preview-letter">
+                <div class="preview-line" style="width: 50%; background: #ff4d6d;"></div>
+                <div class="preview-line" style="width: 90%;"></div>
+                <div class="preview-line" style="width: 80%;"></div>
+                <div class="preview-line" style="width: 60%;"></div>
+            </div>
+
+            <div class="rose-container">
+                <svg viewBox="0 0 64 64" width="100%" height="100%">
+                    <path d="M32 24c4-10 18-6 12 6-5 10-12 16-12 16s-7-6-12-16c-6-12 8-16 12-6z" fill="#ff2a54"/>
+                    <path d="M32 28c2-5 9-3 6 3-3 5-6 8-6 8s-3-3-6-8c-3-6 4-8 6-3z" fill="#ff4d6d"/>
+                    <path d="M32 44c0 0 4-6 2-12M32 44v14" stroke="#2b9348" stroke-width="3" stroke-linecap="round" fill="none"/>
+                    <path d="M32 50c4-1 8-4 8-4M32 53c-4 0-7-3-7-3" stroke="#2b9348" stroke-width="2.5" stroke-linecap="round"/>
+                </svg>
+            </div>
+        </div>
+
         <h2 class="mailbox-title">Surprise for my World</h2>
-        <p class="mailbox-subtitle">Tap to open ✨</p>
+        <p class="mailbox-subtitle">Tap the envelope to open your letter ✨</p>
     </div>
 
     <div id="letterScreen">
@@ -189,22 +321,59 @@
 </div>
 
 <script>
-    function openMail() {
-        // Hide Mailbox, Show Letter
-        document.getElementById('mailboxScreen').style.display = 'none';
-        const letter = document.getElementById('letterScreen');
-        letter.style.display = 'block';
+    // --- Step 1: Burst Particles Generation ---
+    function spawnParticles() {
+        const mailbox = document.getElementById('mailboxScreen');
+        const symbols = ['❤', '🌸', '✨', '🎈', '💖'];
         
-        // Small delay for smooth fade-in
-        setTimeout(() => { letter.style.opacity = '1'; }, 50);
-
-        // Pre-draw the back face with text
-        drawBackFace();
-        
-        // Start the front face live drawing
-        plotHeartEquation();
+        for (let i = 0; i < 30; i++) {
+            const p = document.createElement('div');
+            p.classList.add('particle');
+            p.innerText = symbols[Math.floor(Math.random() * symbols.length)];
+            
+            // Random direction vectors
+            const angle = Math.random() * Math.PI * 2;
+            const distance = 80 + Math.random() * 160;
+            const tx = Math.cos(angle) * distance;
+            const ty = Math.sin(angle) * distance - 30;
+            const scale = 0.6 + Math.random() * 0.8;
+            
+            p.style.setProperty('--tx', `${tx}px`);
+            p.style.setProperty('--ty', `${ty}px`);
+            p.style.setProperty('--s', scale);
+            
+            // Spawn near center of envelope
+            p.style.left = '50%';
+            p.style.top = '40%';
+            
+            mailbox.appendChild(p);
+            setTimeout(() => p.remove(), 1200);
+        }
     }
 
+    // --- Step 2: Envelope Trigger Sequences ---
+    function processEnvelopeAnimation() {
+        const env = document.getElementById('envelope');
+        if (env.classList.contains('open')) return;
+        
+        env.classList.add('open');
+        spawnParticles();
+
+        // Wait for envelope flap & letter extraction transition to complete beautifully
+        setTimeout(() => {
+            document.getElementById('mailboxScreen').style.display = 'none';
+            const letter = document.getElementById('letterScreen');
+            letter.style.display = 'block';
+            
+            setTimeout(() => { 
+                letter.style.opacity = '1'; 
+                drawBackFace();        // Static declaration configuration
+                engineControlLoop();   // Run the looping interactive engine
+            }, 50);
+        }, 1600);
+    }
+
+    // --- Step 3: Draw Back Face Canvas (I Love You) ---
     function drawBackFace() {
         const canvas = document.getElementById('heartBackCanvas');
         const ctx = canvas.getContext('2d');
@@ -212,7 +381,7 @@
         const centerY = canvas.height / 2 - 15;
         const scale = 9;
 
-        // Draw the solid filled heart exactly matching the equation
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
         ctx.fillStyle = "#ff4d6d";
         ctx.beginPath();
         for(let t = 0; t <= 2 * Math.PI + 0.1; t += 0.05) {
@@ -226,35 +395,34 @@
         }
         ctx.fill();
 
-        // Add the Text on top of the heart
+        // Message text styling layer
         ctx.fillStyle = "white";
         ctx.font = "bold 32px 'Segoe UI', Tahoma, sans-serif";
         ctx.textAlign = "center";
         ctx.textBaseline = "middle";
-        
-        // Add slight shadow for better readability
-        ctx.shadowColor = "rgba(0, 0, 0, 0.2)";
+        ctx.shadowColor = "rgba(0, 0, 0, 0.15)";
         ctx.shadowBlur = 4;
-        ctx.shadowOffsetX = 1;
-        ctx.shadowOffsetY = 1;
-
+        
         ctx.fillText("I love you,", centerX, centerY - 15);
         ctx.fillText("Jannat", centerX, centerY + 25);
     }
 
-    function plotHeartEquation() {
-        const canvas = document.getElementById('heartFrontCanvas');
-        const ctx = canvas.getContext('2d');
-        const centerX = canvas.width / 2;
-        const centerY = canvas.height / 2 - 15; 
+    // --- Step 4: Core Real-time Generation Engine Loop ---
+    const wrapper = document.getElementById('heartWrapper');
+    const frontCanvas = document.getElementById('heartFrontCanvas');
+    const frontCtx = frontCanvas.getContext('2d');
+    
+    function runPlotAnimation(callback) {
+        const centerX = frontCanvas.width / 2;
+        const centerY = frontCanvas.height / 2 - 15; 
         const scale = 9; 
         
         let t = 0;
-        const step = 0.02; 
+        const step = 0.025; // Speed step of line generation (around 2.5-3s total generation time)
         const end = 2 * Math.PI;
         const points = []; 
 
-        function draw() {
+        function drawFrame() {
             if (t <= end + step) {
                 const x = 16 * Math.pow(Math.sin(t), 3);
                 const y = 13 * Math.cos(t) - 5 * Math.cos(2*t) - 2 * Math.cos(3*t) - Math.cos(4*t);
@@ -263,33 +431,61 @@
                 const pixelY = centerY - y * scale;
                 points.push({ x: pixelX, y: pixelY });
 
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-                ctx.lineWidth = 4;
-                ctx.strokeStyle = "#ff4d6d";
-                ctx.lineCap = "round";
-                ctx.lineJoin = "round";
+                frontCtx.clearRect(0, 0, frontCanvas.width, frontCanvas.height);
+                frontCtx.lineWidth = 4;
+                frontCtx.strokeStyle = "#ff4d6d";
+                frontCtx.lineCap = "round";
+                frontCtx.lineJoin = "round";
 
-                ctx.beginPath();
-                ctx.moveTo(points.x, points.y);
+                frontCtx.beginPath();
+                frontCtx.moveTo(points.x, points.y);
                 for (let i = 1; i < points.length; i++) {
-                    ctx.lineTo(points[i].x, points[i].y);
+                    frontCtx.lineTo(points[i].x, points[i].y);
                 }
-                ctx.stroke();
+                frontCtx.stroke();
 
                 t += step;
-                requestAnimationFrame(draw);
+                requestAnimationFrame(drawFrame);
             } else {
-                // Fill softly once complete
-                ctx.fillStyle = "rgba(255, 77, 109, 0.15)";
-                ctx.fill();
+                // Apply soft translucent structural coloring fill upon complete tracing loop
+                frontCtx.fillStyle = "rgba(255, 77, 109, 0.15)";
+                frontCtx.fill();
                 
-                // Trigger the 3D Revolve Animation after a 1-second pause
-                setTimeout(() => {
-                    document.getElementById('heartWrapper').classList.add('spin-animation');
-                }, 1000);
+                // Fire finish callback function execution
+                if (callback) callback();
             }
         }
-        draw();
+        drawFrame();
+    }
+
+    // High-performance timeline execution loop synchronizer
+    function engineControlLoop() {
+        // 1. Reset matrix states and clear front viewport context canvas cleanly
+        wrapper.className = "heart-3d-wrapper"; 
+        frontCtx.clearRect(0, 0, frontCanvas.width, frontCanvas.height);
+        frontCtx.shadowBlur = 0; // Prevent canvas artifact trailing
+
+        // 2. Start drawing live heart trajectory trace path
+        runPlotAnimation(() => {
+            // 3. Drawing finished. Wait 1.5 seconds so she can appreciate the generated path
+            setTimeout(() => {
+                // 4. Transform Matrix 180 degrees to reveal text face
+                wrapper.classList.add('flip-to-back');
+                
+                // 5. Keep Text Face displayed on screen viewport for 4.5 seconds
+                setTimeout(() => {
+                    // 6. Rotate forward to 360 degrees to reset viewport presentation matrix position
+                    wrapper.classList.remove('flip-to-back');
+                    wrapper.classList.add('flip-to-front');
+                    
+                    // 7. Wait 1.2 seconds for rotation transition execution to finish, then recycle execution pipeline
+                    setTimeout(() => {
+                        engineControlLoop();
+                    }, 1200);
+                    
+                }, 4500);
+            }, 1500);
+        });
     }
 </script>
 
