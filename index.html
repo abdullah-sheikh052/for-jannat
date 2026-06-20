@@ -11,23 +11,24 @@
             text-align: center;
             color: #333333;
             margin: 0;
-            padding: 20px;
+            padding: 12px;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
             overflow-x: hidden;
+            box-sizing: border-box;
         }
         .container-box {
-            padding: 40px;
+            padding: 25px 20px;
             border-radius: 20px;
             background: white;
             box-shadow: 0px 15px 35px rgba(255, 77, 109, 0.1);
-            max-width: 750px;
+            max-width: 650px;
             width: 100%;
             box-sizing: border-box;
             position: relative;
-            min-height: 500px;
+            min-height: 480px;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -40,11 +41,9 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 40px 0;
+            padding: 30px 0;
             perspective: 1000px;
         }
-        
-        /* Floating Background Decorative Elements */
         .decorations {
             position: absolute;
             width: 100%;
@@ -62,68 +61,57 @@
             0%, 100% { transform: translateY(0) scale(1) rotate(0deg); opacity: 0.4; }
             50% { transform: translateY(-15px) scale(1.1) rotate(10deg); opacity: 0.8; }
         }
-
-        /* The Premium Envelope Container */
         .envelope-wrapper {
             position: relative;
-            width: 300px;
-            height: 200px;
+            width: 280px;
+            height: 185px;
             background: #ffe3e7;
             border-radius: 0 0 12px 12px;
-            box-shadow: 0 20px 40px rgba(255, 77, 109, 0.15);
+            box-shadow: 0 15px 35px rgba(255, 77, 109, 0.15);
             cursor: pointer;
-            margin-bottom: 40px;
+            margin-bottom: 30px;
             transform-style: preserve-3d;
             transition: transform 0.3s ease;
         }
         .envelope-wrapper:hover {
             transform: scale(1.03) translateY(-5px);
         }
-
-        /* Outer Folds of Envelope */
-        .envelope-front {
-            position: absolute;
-            width: 0; height: 0;
-            z-index: 10;
-        }
         .left-fold {
             position: absolute; left: 0; top: 0; width: 0; height: 0;
-            border-left: 150px solid #ffd1d7;
-            border-top: 100px solid transparent;
-            border-bottom: 100px solid transparent;
+            border-left: 140px solid #ffd1d7;
+            border-top: 92.5px solid transparent;
+            border-bottom: 92.5px solid transparent;
             border-radius: 0 0 0 12px;
             z-index: 5;
         }
         .right-fold {
             position: absolute; right: 0; top: 0; width: 0; height: 0;
-            border-right: 150px solid #ffd1d7;
-            border-top: 100px solid transparent;
-            border-bottom: 100px solid transparent;
+            border-right: 140px solid #ffd1d7;
+            border-top: 92.5px solid transparent;
+            border-bottom: 92.5px solid transparent;
             border-radius: 0 0 12px 0;
             z-index: 5;
         }
         .bottom-fold {
             position: absolute; bottom: 0; left: 0; width: 0; height: 0;
-            border-bottom: 110px solid #ffc2cc;
-            border-left: 150px solid transparent;
-            border-right: 150px solid transparent;
+            border-bottom: 100px solid #ffc2cc;
+            border-left: 140px solid transparent;
+            border-right: 140px solid transparent;
             border-radius: 0 0 12px 12px;
             z-index: 6;
         }
         .top-flap {
             position: absolute; top: 0; left: 0; width: 0; height: 0;
-            border-top: 110px solid #ffb3c1;
-            border-left: 150px solid transparent;
-            border-right: 150px solid transparent;
+            border-top: 100px solid #ffb3c1;
+            border-left: 140px solid transparent;
+            border-right: 140px solid transparent;
             transform-origin: top;
             transition: transform 0.6s ease 0.2s;
-            z-index: 11; /* Sits on top of seal initially */
+            z-index: 11;
         }
-
-        /* Wax Seal Stamp */
         .wax-seal {
             position: absolute;
-            top: 90px; left: 132px;
+            top: 80px; left: 122px;
             width: 36px; height: 36px;
             background: #d90429;
             border-radius: 50%;
@@ -134,17 +122,11 @@
             justify-content: center;
             transition: transform 0.4s ease, opacity 0.4s ease;
         }
-        .wax-seal::before {
-            content: '❤';
-            color: #fff;
-            font-size: 16px;
-        }
-
-        /* Sliding Preview Letter Inside Envelope */
+        .wax-seal::before { content: '❤'; color: #fff; font-size: 16px; }
         .preview-letter {
             position: absolute;
             top: 10px; left: 20px;
-            width: 260px; height: 160px;
+            width: 240px; height: 150px;
             background: #fffdf9;
             border-radius: 6px;
             z-index: 2;
@@ -153,46 +135,26 @@
             box-sizing: border-box;
             transition: transform 0.8s cubic-bezier(0.19, 1, 0.22, 1) 0.6s;
         }
-        .preview-line {
-            height: 8px; background: #e9ecef; margin-bottom: 10px; border-radius: 4px;
-        }
-
-        /* Beautiful SVG Rose at Bottom Right */
+        .preview-line { height: 8px; background: #e9ecef; margin-bottom: 10px; border-radius: 4px; }
         .rose-container {
             position: absolute;
-            bottom: -25px;
-            right: -25px;
-            width: 100px;
-            height: 100px;
+            bottom: -20px; right: -20px;
+            width: 90px; height: 90px;
             z-index: 15;
             transform: rotate(-15deg);
             pointer-events: none;
         }
+        .envelope-wrapper.open .top-flap { transform: rotateX(180deg); z-index: 1; }
+        .envelope-wrapper.open .wax-seal { transform: scale(0.5) translateY(20px); opacity: 0; }
+        .envelope-wrapper.open .preview-letter { transform: translateY(-120px); z-index: 8; }
+        .mailbox-title { color: #ff4d6d; font-size: 28px; font-weight: bold; margin: 0 0 5px 0; }
+        .mailbox-subtitle { color: #6c757d; font-size: 15px; margin: 0; font-style: italic; }
 
-        /* Envelope Open Trigger State Styles */
-        .envelope-wrapper.open .top-flap {
-            transform: rotateX(180deg);
-            z-index: 1;
-        }
-        .envelope-wrapper.open .wax-seal {
-            transform: scale(0.5) translateY(20px);
-            opacity: 0;
-        }
-        .envelope-wrapper.open .preview-letter {
-            transform: translateY(-130px);
-            z-index: 8;
-        }
-
-        .mailbox-title { color: #ff4d6d; font-size: 32px; font-weight: bold; margin: 0 0 5px 0; }
-        .mailbox-subtitle { color: #6c757d; font-size: 16px; margin: 0; font-style: italic; }
-
-        /* Bursting Love Particles System */
+        /* Burst Particles */
         .particle {
-            position: absolute;
-            pointer-events: none;
+            position: absolute; pointer-events: none;
             animation: burstOut 1.2s forwards cubic-bezier(0.1, 0.8, 0.3, 1);
-            z-index: 99;
-            font-size: 20px;
+            z-index: 99; font-size: 20px;
         }
         @keyframes burstOut {
             0% { transform: translate(0, 0) scale(0); opacity: 1; }
@@ -204,35 +166,40 @@
             display: none;
             opacity: 0;
             transition: opacity 1s ease-in-out;
+            position: relative;
         }
-        .title { color: #ff4d6d; font-weight: bold; font-size: 36px; margin-bottom: 5px; }
-        .subtitle { color: #6c757d; font-size: 16px; margin-bottom: 25px; font-style: italic; }
+        .title { color: #ff4d6d; font-weight: bold; font-size: 28px; margin-bottom: 5px; padding: 0 10px; }
+        .subtitle { color: #6c757d; font-size: 14px; margin-bottom: 20px; font-style: italic; padding: 0 10px; }
         
         .story-card {
             text-align: left;
             background: #fff1f3;
-            padding: 30px;
-            border-left: 6px solid #ff4d6d;
+            padding: 22px;
+            border-left: 5px solid #ff4d6d;
             border-radius: 12px;
-            font-size: 16px;
-            line-height: 1.8;
+            font-size: 15px;
+            line-height: 1.7;
             color: #4a4a4a;
+            position: relative;
+            z-index: 10; /* Ensures letter content is always on top of floating bubbles */
         }
-        .story-header { font-size: 20px; font-weight: bold; color: #ff4d6d; margin-bottom: 15px; }
+        .story-header { font-size: 18px; font-weight: bold; color: #ff4d6d; margin-bottom: 12px; }
 
-        /* ================= 3D HEART CANVAS SYSTEM ================= */
+        /* ================= PREMIUM 3D RESPONSIVE CANVAS LOOP ================= */
         .plot-container {
-            margin-top: 40px;
+            margin-top: 30px;
             display: flex;
             justify-content: center;
             perspective: 1000px; 
+            position: relative;
+            z-index: 5;
         }
         .heart-3d-wrapper {
-            width: 350px;
-            height: 350px;
+            width: 300px;
+            height: 300px;
             position: relative;
             transform-style: preserve-3d;
-            transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: transform 1.4s cubic-bezier(0.4, 0, 0.2, 1); /* Perfectly fluid turn speed */
         }
         .heart-face {
             position: absolute;
@@ -242,15 +209,34 @@
             -webkit-backface-visibility: hidden;
             border-radius: 15px;
             background: #ffffff;
-            box-shadow: 0 8px 25px rgba(255, 77, 109, 0.15);
+            box-shadow: 0 8px 25px rgba(255, 77, 109, 0.12);
         }
         .heart-face.front { transform: rotateY(0deg); }
         .heart-face.back { transform: rotateY(180deg); }
-        canvas { display: block; border-radius: 15px; }
+        canvas { display: block; width: 100%; height: 100%; border-radius: 15px; }
 
-        /* Dynamic Controlled 3D Rotations */
-        .heart-3d-wrapper.flip-to-back { transform: rotateY(180deg); }
-        .heart-3d-wrapper.flip-to-front { transform: rotateY(360deg); }
+        /* Rising Love Bubble System (Spawns after 2 turns) */
+        .rising-bubble {
+            position: absolute;
+            pointer-events: none;
+            color: rgba(255, 77, 109, 0.35); /* Soft alpha to guarantee reading text easily */
+            font-size: 16px;
+            z-index: 2;
+            animation: riseUp 3.5s linear forwards;
+        }
+        @keyframes riseUp {
+            0% { transform: translateY(250px) translateX(0) scale(0.5); opacity: 0; }
+            10% { opacity: 0.7; }
+            90% { opacity: 0.4; }
+            100% { transform: translateY(-380px) translateX(var(--x-drift)) scale(1.2); opacity: 0; }
+        }
+
+        /* Small screen handling adjustments */
+        @media (max-width: 360px) {
+            .container-box { padding: 15px 10px; }
+            .heart-3d-wrapper { width: 270px; height: 270px; }
+            .title { font-size: 24px; }
+        }
     </style>
 </head>
 <body>
@@ -259,235 +245,5 @@
     
     <div id="mailboxScreen">
         <div class="decorations">
-            <span class="floating-heart" style="top:10%; left:20%; font-size:24px; animation-delay:0s;">❤</span>
-            <span class="floating-heart" style="top:5%; right:25%; font-size:18px; animation-delay:1.5s;">✨</span>
-            <span class="floating-heart" style="bottom:20%; left:15%; font-size:20px; animation-delay:0.8s;">🌸</span>
-            <span class="floating-heart" style="bottom:10%; right:20%; font-size:22px; animation-delay:2.2s;">❤</span>
-        </div>
-
-        <div class="envelope-wrapper" id="envelope" onclick="processEnvelopeAnimation()">
-            <div class="top-flap"></div>
-            <div class="left-fold"></div>
-            <div class="right-fold"></div>
-            <div class="bottom-fold"></div>
-            <div class="wax-seal"></div>
-            
-            <div class="preview-letter">
-                <div class="preview-line" style="width: 50%; background: #ff4d6d;"></div>
-                <div class="preview-line" style="width: 90%;"></div>
-                <div class="preview-line" style="width: 80%;"></div>
-                <div class="preview-line" style="width: 60%;"></div>
-            </div>
-
-            <div class="rose-container">
-                <svg viewBox="0 0 64 64" width="100%" height="100%">
-                    <path d="M32 24c4-10 18-6 12 6-5 10-12 16-12 16s-7-6-12-16c-6-12 8-16 12-6z" fill="#ff2a54"/>
-                    <path d="M32 28c2-5 9-3 6 3-3 5-6 8-6 8s-3-3-6-8c-3-6 4-8 6-3z" fill="#ff4d6d"/>
-                    <path d="M32 44c0 0 4-6 2-12M32 44v14" stroke="#2b9348" stroke-width="3" stroke-linecap="round" fill="none"/>
-                    <path d="M32 50c4-1 8-4 8-4M32 53c-4 0-7-3-7-3" stroke="#2b9348" stroke-width="2.5" stroke-linecap="round"/>
-                </svg>
-            </div>
-        </div>
-
-        <h2 class="mailbox-title">Surprise for my World</h2>
-        <p class="mailbox-subtitle">Tap the envelope to open your letter ✨</p>
-    </div>
-
-    <div id="letterScreen">
-        <div class="title">Happy Birthday, Jannat! 🎂❤️</div>
-        <div class="subtitle">Where Structural Stability Meets Biological Evolution • Since College Days</div>
-
-        <div class="story-card">
-            <div class="story-header">The Perfect Synthesis of Our Worlds:</div>
-            <p>In <strong>Building Engineering</strong>, we constantly design for structural stability, reliable equilibrium, and a foundation strong enough to withstand any external storm.</p>
-            <p>In <strong>Zoology</strong>, you decode the breathtaking beauty of life, organic adaptation, and the marvelous complexity of evolution.</p>
-            <p>Ever since our <strong>college days</strong>, you have flawlessly been both to me: the rock-solid structural foundation that keeps my life safely grounded, and the beautiful living force that makes my entire world evolve and flourish.</p>
-            <p>You are the ultimate blueprint of my happiness, <strong>Jannat</strong>.</p>
-            <p>May this new year of your life bring you endless growth, pure joy, and brilliant discoveries. Happy Birthday, my favorite scientist! 🌟</p>
-        </div>
-
-        <div class="plot-container">
-            <div class="heart-3d-wrapper" id="heartWrapper">
-                <div class="heart-face front">
-                    <canvas id="heartFrontCanvas" width="350" height="350"></canvas>
-                </div>
-                <div class="heart-face back">
-                    <canvas id="heartBackCanvas" width="350" height="350"></canvas>
-                </div>
-            </div>
-        </div>
-    </div>
-
-</div>
-
-<script>
-    // --- Step 1: Burst Particles Generation ---
-    function spawnParticles() {
-        const mailbox = document.getElementById('mailboxScreen');
-        const symbols = ['❤', '🌸', '✨', '🎈', '💖'];
-        
-        for (let i = 0; i < 30; i++) {
-            const p = document.createElement('div');
-            p.classList.add('particle');
-            p.innerText = symbols[Math.floor(Math.random() * symbols.length)];
-            
-            // Random direction vectors
-            const angle = Math.random() * Math.PI * 2;
-            const distance = 80 + Math.random() * 160;
-            const tx = Math.cos(angle) * distance;
-            const ty = Math.sin(angle) * distance - 30;
-            const scale = 0.6 + Math.random() * 0.8;
-            
-            p.style.setProperty('--tx', `${tx}px`);
-            p.style.setProperty('--ty', `${ty}px`);
-            p.style.setProperty('--s', scale);
-            
-            // Spawn near center of envelope
-            p.style.left = '50%';
-            p.style.top = '40%';
-            
-            mailbox.appendChild(p);
-            setTimeout(() => p.remove(), 1200);
-        }
-    }
-
-    // --- Step 2: Envelope Trigger Sequences ---
-    function processEnvelopeAnimation() {
-        const env = document.getElementById('envelope');
-        if (env.classList.contains('open')) return;
-        
-        env.classList.add('open');
-        spawnParticles();
-
-        // Wait for envelope flap & letter extraction transition to complete beautifully
-        setTimeout(() => {
-            document.getElementById('mailboxScreen').style.display = 'none';
-            const letter = document.getElementById('letterScreen');
-            letter.style.display = 'block';
-            
-            setTimeout(() => { 
-                letter.style.opacity = '1'; 
-                drawBackFace();        // Static declaration configuration
-                engineControlLoop();   // Run the looping interactive engine
-            }, 50);
-        }, 1600);
-    }
-
-    // --- Step 3: Draw Back Face Canvas (I Love You) ---
-    function drawBackFace() {
-        const canvas = document.getElementById('heartBackCanvas');
-        const ctx = canvas.getContext('2d');
-        const centerX = canvas.width / 2;
-        const centerY = canvas.height / 2 - 15;
-        const scale = 9;
-
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        ctx.fillStyle = "#ff4d6d";
-        ctx.beginPath();
-        for(let t = 0; t <= 2 * Math.PI + 0.1; t += 0.05) {
-            const x = 16 * Math.pow(Math.sin(t), 3);
-            const y = 13 * Math.cos(t) - 5 * Math.cos(2*t) - 2 * Math.cos(3*t) - Math.cos(4*t);
-            const pixelX = centerX + x * scale;
-            const pixelY = centerY - y * scale;
-            
-            if (t === 0) ctx.moveTo(pixelX, pixelY);
-            else ctx.lineTo(pixelX, pixelY);
-        }
-        ctx.fill();
-
-        // Message text styling layer
-        ctx.fillStyle = "white";
-        ctx.font = "bold 32px 'Segoe UI', Tahoma, sans-serif";
-        ctx.textAlign = "center";
-        ctx.textBaseline = "middle";
-        ctx.shadowColor = "rgba(0, 0, 0, 0.15)";
-        ctx.shadowBlur = 4;
-        
-        ctx.fillText("I love you,", centerX, centerY - 15);
-        ctx.fillText("Jannat", centerX, centerY + 25);
-    }
-
-    // --- Step 4: Core Real-time Generation Engine Loop ---
-    const wrapper = document.getElementById('heartWrapper');
-    const frontCanvas = document.getElementById('heartFrontCanvas');
-    const frontCtx = frontCanvas.getContext('2d');
-    
-    function runPlotAnimation(callback) {
-        const centerX = frontCanvas.width / 2;
-        const centerY = frontCanvas.height / 2 - 15; 
-        const scale = 9; 
-        
-        let t = 0;
-        const step = 0.025; // Speed step of line generation (around 2.5-3s total generation time)
-        const end = 2 * Math.PI;
-        const points = []; 
-
-        function drawFrame() {
-            if (t <= end + step) {
-                const x = 16 * Math.pow(Math.sin(t), 3);
-                const y = 13 * Math.cos(t) - 5 * Math.cos(2*t) - 2 * Math.cos(3*t) - Math.cos(4*t);
-
-                const pixelX = centerX + x * scale;
-                const pixelY = centerY - y * scale;
-                points.push({ x: pixelX, y: pixelY });
-
-                frontCtx.clearRect(0, 0, frontCanvas.width, frontCanvas.height);
-                frontCtx.lineWidth = 4;
-                frontCtx.strokeStyle = "#ff4d6d";
-                frontCtx.lineCap = "round";
-                frontCtx.lineJoin = "round";
-
-                frontCtx.beginPath();
-                frontCtx.moveTo(points.x, points.y);
-                for (let i = 1; i < points.length; i++) {
-                    frontCtx.lineTo(points[i].x, points[i].y);
-                }
-                frontCtx.stroke();
-
-                t += step;
-                requestAnimationFrame(drawFrame);
-            } else {
-                // Apply soft translucent structural coloring fill upon complete tracing loop
-                frontCtx.fillStyle = "rgba(255, 77, 109, 0.15)";
-                frontCtx.fill();
-                
-                // Fire finish callback function execution
-                if (callback) callback();
-            }
-        }
-        drawFrame();
-    }
-
-    // High-performance timeline execution loop synchronizer
-    function engineControlLoop() {
-        // 1. Reset matrix states and clear front viewport context canvas cleanly
-        wrapper.className = "heart-3d-wrapper"; 
-        frontCtx.clearRect(0, 0, frontCanvas.width, frontCanvas.height);
-        frontCtx.shadowBlur = 0; // Prevent canvas artifact trailing
-
-        // 2. Start drawing live heart trajectory trace path
-        runPlotAnimation(() => {
-            // 3. Drawing finished. Wait 1.5 seconds so she can appreciate the generated path
-            setTimeout(() => {
-                // 4. Transform Matrix 180 degrees to reveal text face
-                wrapper.classList.add('flip-to-back');
-                
-                // 5. Keep Text Face displayed on screen viewport for 4.5 seconds
-                setTimeout(() => {
-                    // 6. Rotate forward to 360 degrees to reset viewport presentation matrix position
-                    wrapper.classList.remove('flip-to-back');
-                    wrapper.classList.add('flip-to-front');
-                    
-                    // 7. Wait 1.2 seconds for rotation transition execution to finish, then recycle execution pipeline
-                    setTimeout(() => {
-                        engineControlLoop();
-                    }, 1200);
-                    
-                }, 4500);
-            }, 1500);
-        });
-    }
-</script>
-
-</body>
-</html>
+            <span class="floating-heart" style="top:10%; left:15%; font-size:22px; animation-delay:0s;">❤</span>
+            <span class="floating-heart" style="
