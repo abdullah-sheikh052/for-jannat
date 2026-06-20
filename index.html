@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Jannat!</title>
+    <style>
+        body {
+            background-color: #fff8f8;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            text-align: center;
+            color: #333333;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container-box {
+            padding: 40px;
+            border-radius: 20px;
+            background: white;
+            box-shadow: 0px 15px 35px rgba(255, 77, 109, 0.1);
+            max-width: 700px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        .title {
+            color: #ff4d6d;
+            font-weight: bold;
+            font-size: 36px;
+            margin-bottom: 5px;
+        }
+        .subtitle {
+            color: #6c757d;
+            font-size: 16px;
+            margin-bottom: 35px;
+            font-style: italic;
+            line-height: 1.4;
+        }
+        .btn-love {
+            background: linear-gradient(45deg, #ff4d6d, #ff758f);
+            color: white;
+            font-size: 18px;
+            font-weight: 600;
+            border-radius: 50px;
+            padding: 14px 40px;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(255, 77, 109, 0.3);
+            transition: 0.3s;
+        }
+        .btn-love:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(255, 77, 109, 0.5);
+        }
+        .reveal-section {
+            display: none; /* Hidden at first */
+            opacity: 0;
+            transition: opacity 0.8s ease-in-out;
+        }
+        .story-card {
+            margin-top: 35px;
+            text-align: left;
+            background: #fff1f3;
+            padding: 30px;
+            border-left: 6px solid #ff4d6d;
+            border-radius: 12px;
+            font-size: 16px;
+            line-height: 1.8;
+            color: #4a4a4a;
+        }
+        .story-header {
+            font-size: 20px;
+            font-weight: bold;
+            color: #ff4d6d;
+            margin-bottom: 15px;
+        }
+        .heart-plot {
+            margin-top: 20px;
+            width: 250px;
+            height: 250px;
+            fill: #ff4d6d;
+            animation: pulse 1.5s infinite alternate;
+        }
+        @keyframes pulse {
+            0% { transform: scale(0.95); }
+            100% { transform: scale(1.05); }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container-box">
+    <div class="title">Happy Birthday, Jannat! 🎂❤️</div>
+    <div class="subtitle">Where Structural Stability Meets Biological Evolution • Since College Days</div>
+    
+    <button class="btn-love" id="unlockBtn" onclick="revealSurprise()">Unlock Our Blueprint & Evolution ✨</button>
+
+    <div class="reveal-section" id="surpriseContent">
+        <div class="story-card">
+            <div class="story-header">The Perfect Synthesis of Our Worlds:</div>
+            <p>In <strong>Building Engineering</strong>, we constantly design for structural stability, reliable equilibrium, and a foundation strong enough to withstand any external storm.</p>
+            <p>In <strong>Zoology</strong>, you decode the breathtaking beauty of life, organic adaptation, and the marvelous complexity of evolution.</p>
+            <p>Ever since our <strong>college days</strong>, you have flawlessly been both to me: the rock-solid structural foundation that keeps my life safely grounded, and the beautiful living force that makes my entire world evolve and flourish.</p>
+            <p>You are the ultimate blueprint of my happiness, <strong>Jannat</strong>.</p>
+            <p>May this new year of your life bring you endless growth, pure joy, and brilliant discoveries. Happy Birthday, my favorite scientist! 🌟</p>
+        </div>
+
+        <svg class="heart-plot" viewBox="0 0 32 32">
+            <path d="M16 28.5b-0.2-.1-10.7-7.8-12.8-11.7C1.1 12.8 2.3 8 7.5 8c3.2 0 5.8 2.2 8.5 5 2.7-2.8 5.3-5 8.5-5 5.2 0 6.4 4.8 4.3 8.8-2.1 3.9-12.6 11.6-12.8 11.7z"/>
+        </svg>
+    </div>
+</div>
+
+<script>
+    function revealSurprise() {
+        // Hide button smoothly
+        const btn = document.getElementById('unlockBtn');
+        btn.style.display = 'none';
+        
+        // Show content smoothly
+        const content = document.getElementById('surpriseContent');
+        content.style.display = 'block';
+        setTimeout(() => {
+            content.style.opacity = '1';
+        }, 50);
+    }
+</script>
+
+</body>
+</html>
