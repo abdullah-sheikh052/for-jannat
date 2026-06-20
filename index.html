@@ -1,13 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="bn">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Happy Birthday Jannat!</title>
     <style>
+        /* Google Fonts থেকে প্রিমিয়াম বাংলা ক্যালিগ্রাফি (Galada) এবং রেসপনসিভ ফন্ট ইমপোর্ট */
+        @import url('https://fonts.googleapis.com/css2?family=Galada&family=Hind+Siliguri:wght@500;700&display=swap');
+
         body {
             background-color: #fff8f8;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Hind Siliguri', 'Segoe UI', sans-serif;
             text-align: center;
             color: #333333;
             margin: 0;
@@ -147,7 +150,9 @@
         .envelope-wrapper.open .top-flap { transform: rotateX(180deg); z-index: 1; }
         .envelope-wrapper.open .wax-seal { transform: scale(0.5) translateY(20px); opacity: 0; }
         .envelope-wrapper.open .preview-letter { transform: translateY(-120px); z-index: 8; }
-        .mailbox-title { color: #ff4d6d; font-size: 28px; font-weight: bold; margin: 0 0 5px 0; }
+        
+        /* ক্যালিগ্রাফি হেডার স্টাইল */
+        .mailbox-title { font-family: 'Galada', cursive; color: #ff4d6d; font-size: 32px; margin: 0 0 5px 0; }
         .mailbox-subtitle { color: #6c757d; font-size: 15px; margin: 0; font-style: italic; }
 
         /* Burst Particles */
@@ -168,22 +173,43 @@
             transition: opacity 1s ease-in-out;
             position: relative;
         }
-        .title { color: #ff4d6d; font-weight: bold; font-size: 28px; margin-bottom: 5px; padding: 0 10px; }
+        .title { font-family: 'Galada', cursive; color: #ff4d6d; font-size: 36px; margin-bottom: 5px; padding: 0 10px; }
         .subtitle { color: #6c757d; font-size: 14px; margin-bottom: 20px; font-style: italic; padding: 0 10px; }
         
+        /* মূল চিঠির কন্টেইনার এবং ক্যালিগ্রাফি সেটিংস */
         .story-card {
-            text-align: left;
+            font-family: 'Galada', 'Hind Siliguri', cursive;
+            text-align: justify;
             background: #fff1f3;
-            padding: 22px;
+            padding: 24px;
             border-left: 5px solid #ff4d6d;
             border-radius: 12px;
-            font-size: 15px;
-            line-height: 1.7;
-            color: #4a4a4a;
+            font-size: 20px; /* ক্যালিগ্রাফি ফন্টের জন্য আদর্শ রিডেবল সাইজ */
+            line-height: 2.1; /* লাইনগুলোর নিখুঁত ব্যবধান */
+            color: #3a3a3a;
             position: relative;
             z-index: 10;
         }
-        .story-header { font-size: 18px; font-weight: bold; color: #ff4d6d; margin-bottom: 12px; }
+        .story-card p {
+            margin-top: 0;
+            margin-bottom: 20px;
+            text-indent: 15px;
+        }
+        
+        /* রুমি'র কবিতার জন্য এক্সক্লুসিভ স্টাইলিং */
+        .poem-block {
+            font-family: 'Galada', cursive;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.6);
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 15px;
+            color: #d90429;
+            font-size: 22px;
+            line-height: 1.9;
+            box-shadow: inset 0 0 10px rgba(255, 77, 109, 0.05);
+            text-indent: 0 !important;
+        }
 
         /* ================= HIGH PERFORMANCE 3D SVG VIEWPORT ================= */
         .plot-container {
@@ -223,7 +249,7 @@
             display: block;
         }
 
-        /* HTML crisp overlay text for perfect mobile rendering */
+        /* হার্টের ভেতরের টেক্সটের জন্য ক্যালিগ্রাফি স্টাইল */
         .back-text {
             position: absolute;
             top: 45%; left: 50%;
@@ -231,10 +257,10 @@
             color: white;
             width: 100%;
             pointer-events: none;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Galada', cursive;
         }
-        .back-text .line1 { font-size: 22px; font-weight: bold; }
-        .back-text .line2 { font-size: 26px; font-weight: bold; margin-top: 4px; }
+        .back-text .line1 { font-size: 26px; }
+        .back-text .line2 { font-size: 32px; margin-top: 4px; }
 
         /* Rising Background Bubbles Layer */
         .rising-bubble {
@@ -255,7 +281,9 @@
         @media (max-width: 360px) {
             .container-box { padding: 15px 10px; }
             .heart-3d-wrapper { width: 270px; height: 270px; }
-            .title { font-size: 24px; }
+            .title { font-size: 28px; }
+            .story-card { font-size: 18px; padding: 18px; }
+            .poem-block { font-size: 19px; }
         }
     </style>
 </head>
@@ -295,22 +323,33 @@
             </div>
         </div>
 
-        <h2 class="mailbox-title">Surprise for my World</h2>
-        <p class="mailbox-subtitle">Tap the envelope to open your letter ✨</p>
+        <h2 class="mailbox-title">আপনার জন্য একটি বিশেষ চিঠি</h2>
+        <p class="mailbox-subtitle">খামটি খুলতে আলতো চাপুন ✨</p>
     </div>
 
     <!-- STATE 2: Birthday Letter Display -->
     <div id="letterScreen">
-        <div class="title">Happy Birthday, Jannat! 🎂❤️</div>
-        <div class="subtitle">Where Structural Stability Meets Biological Evolution • Since College Days</div>
+        <div class="title">শুভ জন্মদিন, জান্নাত! 🎂❤️</div>
+        <div class="subtitle">A Journey of Pure Love & Fulfillment</div>
 
         <div class="story-card">
-            <div class="story-header">The Perfect Synthesis of Our Worlds:</div>
-            <p>In <strong>Building Engineering</strong>, we constantly design for structural stability, reliable equilibrium, and a foundation strong enough to withstand any external storm.</p>
-            <p>In <strong>Zoology</strong>, you decode the breathtaking beauty of life, organic adaptation, and the marvelous complexity of evolution.</p>
-            <p>Ever since our <strong>college days</strong>, you have flawlessly been both to me: the rock-solid structural foundation that keeps my life safely grounded, and the beautiful living force that makes my entire world evolve and flourish.</p>
-            <p>You are the ultimate blueprint of my happiness, <strong>Jannat</strong>.</p>
-            <p>May this new year of your life bring you endless growth, pure joy, and brilliant discoveries. Happy Birthday, my favorite scientist! 🌟</p>
+            <p>আমার দেখা পৃথিবীর সবথেকে সুন্দর নারীকে জানাই জন্মদিনের শুভেচ্ছা। আপনিই একমাত্র যিনি রূপবতী হয়েও নিরহংকার, দয়ালু, মমতাময়ী। আপনার এই গুণাবলী গুলো ধরে রাখুন। আপনি আদর্শ স্ত্রী এবং মা হবেন ইনশাআল্লাহ। আল্লাহ আপনার জীবন সহজ এবং সুন্দর করুন পাশাপাশি দীর্ঘায়ু দান করুন। আমিন।</p>
+            
+            <p>বছরের দীর্ঘতম দিন যেনো পূর্ণতা পেলো আপনার মাধ্যমে। আপনি ভাগ্য নিয়ে জন্মেছেন। বর্তমানে হয়তো খারাপ যাচ্ছে দিন। কিন্তু সামনে সুন্দর দিন অপেক্ষা করছে।</p>
+            
+            <p>তুমি জীবনে আসার পূর্বে আমার তেমন কোনো উদ্দেশ্য ছিলো না। একটা ইদুর দৌড়ের মধ্যে ছিলাম যেখানে নির্দিষ্ট কোনো প্রাপ্তি ছিলো না। কিন্তু তোমাকে পাওয়ার পর জীবনটাই বদলে গেলো। জীবনের উদ্দেশ্য হয়ে গেলো তোমাকে নিয়ে বাকি জীবনটা সুখের কাটাতে। যেখানেই যাই না কেনো তোমাকে যেনো যথার্থভাবে রাখতে পারি সেটাই আমার উদ্দেশ্য। তাই তো রুমির সুরে আমি বলি:</p>
+            
+            <!-- ক্যালিগ্রাফি হাইলাইটেড কবিতা ব্লক -->
+            <div class="poem-block">
+                “হৃদয় জুড়ে তুমি আছো, <br>
+                দেহ যে তোমাতে লীন, <br>
+                তোমারে ছাড়িয়া এ জীবনে মোর <br>
+                কাটে না একটি দিন। <br>
+                তুমি ছাড়া এই ভুবনে <br>
+                নাইকো কোনো যে ঠাঁই, <br>
+                চন্দ্র-সূর্যের আলোর মতন, <br>
+                তোমাতেই মজে যাই।”
+            </div>
         </div>
 
         <!-- 3D SVG Rendering Container Module -->
@@ -330,8 +369,8 @@
                         <path id="svgSolidPath" fill="#ff4d6d"></path>
                     </svg>
                     <div class="back-text">
-                        <div class="line1">I love you,</div>
-                        <div class="line2">Jannat</div>
+                        <div class="line1">ভালোবাসি তোমায়,</div>
+                        <div class="line2">জান্নাত</div>
                     </div>
                 </div>
 
@@ -346,18 +385,16 @@
     let bubbleIntervalTracker = null;
     let currentMatrixAngle = 0; 
 
-    // Generate accurate path string using the original Parametric Equation on load
     function generateHeartEquationPath() {
         const pathPoints = [];
-        const stepsCount = 120; // High density path mapping
+        const stepsCount = 120; 
         for (let i = 0; i <= stepsCount; i++) {
             const t = (i / stepsCount) * Math.PI * 2;
             const x = 16 * Math.pow(Math.sin(t), 3);
             const y = 13 * Math.cos(t) - 5 * Math.cos(2*t) - 2 * Math.cos(3*t) - Math.cos(4*t);
             
-            // Map mathematical vector space cleanly to 100x100 SVG viewbox coordinates
             const svgX = 50 + x * 2.5;
-            const svgY = 44 - y * 2.5; // Invert Cartesian grid system
+            const svgY = 44 - y * 2.5; 
             
             if (i === 0) pathPoints.push(`M ${svgX} ${svgY}`);
             else pathPoints.push(`L ${svgX} ${svgY}`);
@@ -365,7 +402,6 @@
         return pathPoints.join(' ') + ' Z';
     }
 
-    // Set the mathematical paths immediately upon execution
     const calculatedPathData = generateHeartEquationPath();
     document.getElementById('svgDrawingPath').setAttribute('d', calculatedPathData);
     document.getElementById('svgSolidPath').setAttribute('d', calculatedPathData);
@@ -422,31 +458,27 @@
         }, 400); 
     }
 
-    // High performance hardware-accelerated SVG stroke-dash trace engine
     function runPlotAnimation(callback) {
         const path = document.getElementById('svgDrawingPath');
         const pathLength = path.getTotalLength();
         
-        // Initialize line segment states
         path.style.strokeDasharray = pathLength;
         path.style.strokeDashoffset = pathLength;
         path.style.fill = 'none';
         
         let startTime = null;
-        const animationDuration = 2200; // Perfect, readable drafting speed in milliseconds
+        const animationDuration = 2200; 
 
         function drawFrame(timestamp) {
             if (!startTime) startTime = timestamp;
             const elapsed = timestamp - startTime;
             const progress = Math.min(elapsed / animationDuration, 1);
 
-            // Dynamically retract dash offset to simulate point-by-point plotting
             path.style.strokeDashoffset = pathLength * (1 - progress);
 
             if (progress < 1) {
                 requestAnimationFrame(drawFrame);
             } else {
-                // Smooth translucent structure fill upon trace completion
                 path.style.transition = 'fill 0.5s ease';
                 path.style.fill = 'rgba(255, 77, 109, 0.15)';
                 if (callback) callback();
@@ -456,31 +488,24 @@
     }
 
     function engineControlLoop() {
-        // Reset path presentation attributes cleanly for rewrite loop
         const path = document.getElementById('svgDrawingPath');
         path.style.transition = 'none';
         path.style.fill = 'none';
 
-        // 1. Fire hardware-accelerated SVG curve calculation trace
         runPlotAnimation(() => {
-            // 2. Pause on full trace visualization
             setTimeout(() => {
-                // 3. Accumulate angles infinitely to fix the android back-snap flip bug
                 currentMatrixAngle += 180;
                 document.getElementById('heartWrapper').style.transform = `rotateY(${currentMatrixAngle}deg)`;
                 totalRotationsCount++;
 
-                // 4. Conditional trigger: Start bubble streams after 2 complete cycles
                 if (totalRotationsCount >= 2) {
                     triggerLoveBubbles();
                 }
 
-                // 5. Present the back face "I Love You" text layer
                 setTimeout(() => {
                     currentMatrixAngle += 180;
                     document.getElementById('heartWrapper').style.transform = `rotateY(${currentMatrixAngle}deg)`;
                     
-                    // 6. Complete flip execution buffer window, then re-initialize trace cycle
                     setTimeout(() => {
                         engineControlLoop();
                     }, 1400);
